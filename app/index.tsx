@@ -1,11 +1,24 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { useRouter } from "expo-router";
 
-const SignIn: React.FC = () => {
-  const handleLogin = (): void => {};
+const Index: React.FC = () => {
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    router.push("/home");
+    Alert.alert("Success", "You have successfully logged in.");
+  };
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -47,4 +60,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default Index;
