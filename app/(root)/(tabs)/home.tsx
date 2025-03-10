@@ -1,7 +1,34 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { Link, useNavigation, useRouter } from "expo-router";
+import { useCallback } from "react";
+import { Alert, BackHandler, Button, Text, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Home() {
+  const router = useRouter();
+
+  useFocusEffect(
+    useCallback(() => {
+      const backAction = () => {
+        Alert.alert("Hold on!", "Are you sure you want to go back?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }, [])
+  );
+
   return (
     <View
       style={{
@@ -19,8 +46,26 @@ export default function Home() {
           params: { id: 1 },
         }}
       >
-        Properti
+        Propertis
       </Link>
+      <Button
+        title="Logout"
+        onPress={() => {
+          Alert.alert("Logout", "Are you sure you want to logout?", [
+            {
+              text: "Cancel",
+              onPress: () => null,
+              style: "cancel",
+            },
+            {
+              text: "YES",
+              onPress: () => {
+                router.push("/");
+              },
+            },
+          ]);
+        }}
+      />
     </View>
   );
 }

@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
 import { useRouter } from "expo-router";
+import "react-native-gesture-handler";
 
 const Index: React.FC = () => {
   const router = useRouter();
